@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ringkasan — Maaf yang Menyembuhkan</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,700;1,300;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0F0F1A;
+  --red: #E94560;
+  --teal: #2A9D8F;
+  --amber: #E9A030;
+  --purple: #8B5CF6;
+  --green: #34D399;
+  --cream: #FAF7F2;
+  --soft: #F2EDE6;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--cream); font-family: 'Outfit', sans-serif; color: var(--ink); overflow-x: hidden; }
+
+/* HERO */
+.hero { background: var(--ink); padding: 52px 24px 48px; text-align: center; position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 20% 50%, rgba(233,69,96,0.18) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 80% 30%, rgba(42,157,143,0.15) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 60% 80%, rgba(139,92,246,0.12) 0%, transparent 60%); }
+.hero-badge { display: inline-block; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 20px; position: relative; z-index: 1; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: clamp(32px, 6vw, 52px); color: #fff; line-height: 1.1; position: relative; z-index: 1; margin-bottom: 14px; }
+.hero h1 em { color: var(--red); font-style: italic; font-weight: 300; }
+.hero-sub { font-size: 14px; color: rgba(255,255,255,0.45); position: relative; z-index: 1; max-width: 400px; margin: 0 auto 32px; line-height: 1.65; }
+.modul-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.m-pill { padding: 7px 16px; border-radius: 30px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid transparent; transition: all 0.25s; font-family: 'Outfit', sans-serif; }
+.m-pill:hover { transform: translateY(-2px); }
+.m-pill:not(.active) { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); }
+.m-pill.active { color: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.3); }
+.p1.active { background: #E94560; border-color: #E94560; }
+.p2.active { background: #2A9D8F; border-color: #2A9D8F; }
+.p3.active { background: #E9A030; border-color: #E9A030; }
+.p4.active { background: #8B5CF6; border-color: #8B5CF6; }
+.p5.active { background: #34D399; border-color: #34D399; color: #0a2a1a; }
+
+/* BODY */
+.body-wrap { max-width: 1040px; margin: 0 auto; padding: 40px 16px 80px; }
+
+/* SECTION */
+.section { display: none; }
+.section.active { display: block; animation: fadeUp 0.4s ease forwards; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* SEC HEADER */
+.sec-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 28px; }
+.sec-num { font-family: 'Fraunces', serif; font-size: 72px; line-height: 0.85; opacity: 0.12; flex-shrink: 0; user-select: none; color: var(--accent, #E94560); }
+.sec-kode { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent, #E94560); margin-bottom: 6px; }
+.sec-title { font-family: 'Fraunces', serif; font-size: clamp(20px, 3vw, 28px); line-height: 1.2; margin-bottom: 8px; }
+.sec-desc { font-size: 14px; color: #666; line-height: 1.65; max-width: 580px; }
+
+/* INSIGHT */
+.insight-strip { background: var(--ink); border-radius: 16px; padding: 22px 26px; margin-bottom: 28px; position: relative; overflow: hidden; }
+.insight-strip::after { content: ''; position: absolute; right: -30px; top: -30px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, var(--accent-glow, rgba(233,69,96,0.25)) 0%, transparent 70%); }
+.ins-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px; }
+.ins-text { font-family: 'Fraunces', serif; font-size: clamp(15px, 2.5vw, 19px); color: #fff; line-height: 1.5; position: relative; z-index: 1; }
+.ins-text em { color: var(--accent, #E94560); font-style: italic; font-weight: 300; }
+
+/* LABEL */
+.lbl { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #AAA; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+.lbl::after { content: ''; flex: 1; height: 1px; background: #E8E2DA; }
+
+/* FLIP GRID */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+@media (min-width: 560px) { .flip-grid.g2 { grid-template-columns: 1fr 1fr; } .flip-grid.g3 { grid-template-columns: 1fr 1fr 1fr; } .flip-grid.g4 { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 559px) { .flip-grid.g3, .flip-grid.g4 { grid-template-columns: repeat(2, 1fr); } }
+
+.flip-card { height: 170px; perspective: 1000px; cursor: pointer; }
+.flip-card.tall { height: 210px; }
+.flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1); }
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back { position: absolute; inset: 0; border-radius: 14px; backface-visibility: hidden; -webkit-backface-visibility: hidden; padding: 16px; display: flex; flex-direction: column; }
+.flip-front { background: #fff; border: 1px solid #E8E2DA; justify-content: space-between; }
+.flip-back { background: var(--ink); transform: rotateY(180deg); justify-content: center; }
+.ff-top { display: flex; align-items: flex-start; justify-content: space-between; }
+.ff-emoji { font-size: 28px; line-height: 1; }
+.ff-num { font-family: 'Fraunces', serif; font-size: 26px; line-height: 1; color: var(--accent, #E94560); opacity: 0.25; }
+.ff-title { font-weight: 600; font-size: 13px; color: var(--ink); line-height: 1.35; margin-top: 8px; }
+.ff-hint { font-size: 10px; color: #BBB; font-weight: 500; display: flex; align-items: center; gap: 4px; margin-top: 4px; }
+.fb-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent, #E94560); margin-bottom: 8px; }
+.fb-text { font-size: 12px; line-height: 1.65; color: rgba(255,255,255,0.78); }
+
+/* ACCORDION */
+.accordion { margin-bottom: 28px; display: flex; flex-direction: column; gap: 8px; }
+.acc-item { background: #fff; border-radius: 12px; border: 1px solid #E8E2DA; overflow: hidden; }
+.acc-item.open { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.acc-head { display: flex; align-items: center; gap: 12px; padding: 14px 16px; cursor: pointer; user-select: none; }
+.acc-icon { font-size: 20px; flex-shrink: 0; }
+.acc-title { font-weight: 600; font-size: 13px; flex: 1; }
+.acc-arr { width: 22px; height: 22px; border-radius: 50%; background: var(--soft); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.3s, background 0.2s; }
+.acc-item.open .acc-arr { transform: rotate(180deg); background: var(--accent, #E94560); }
+.acc-arr svg { width: 11px; height: 11px; }
+.acc-item.open .acc-arr svg path { stroke: #fff; }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.acc-body-inner { padding: 2px 16px 16px 48px; font-size: 13px; line-height: 1.7; color: #555; }
+
+/* COMPARE */
+.compare { display: grid; grid-template-columns: 1fr 1fr; border-radius: 14px; overflow: hidden; border: 1px solid #E8E2DA; margin-bottom: 28px; }
+@media (max-width: 480px) { .compare { grid-template-columns: 1fr; } }
+.compare-col { padding: 18px; }
+.compare-col.bad { background: #1C0808; }
+.compare-col.good { background: #091A14; }
+.c-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+.compare-col.bad .c-label { color: #FF8FA3; }
+.compare-col.good .c-label { color: #6EE7B7; }
+.c-item { font-size: 12px; line-height: 1.6; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 8px; align-items: flex-start; }
+.c-item:last-child { border-bottom: none; }
+.compare-col.bad .c-item { color: rgba(255,200,200,0.75); }
+.compare-col.good .c-item { color: rgba(180,255,220,0.8); }
+.ci { flex-shrink: 0; margin-top: 1px; }
+
+/* STEP SWITCHER */
+.steps-wrap { margin-bottom: 28px; }
+.steps-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.step-btn { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1.5px solid #E0D9CE; background: #fff; color: #888; cursor: pointer; transition: all 0.2s; font-family: 'Outfit', sans-serif; }
+.step-btn.active { background: var(--accent, #E94560); border-color: var(--accent, #E94560); color: #fff; }
+.step-panel { background: var(--ink); border-radius: 14px; padding: 22px 24px; position: relative; overflow: hidden; min-height: 130px; }
+.step-panel[data-n]::before { content: attr(data-n); font-family: 'Fraunces', serif; font-size: 110px; line-height: 1; color: rgba(255,255,255,0.035); position: absolute; right: 12px; bottom: -10px; pointer-events: none; }
+.sp-title { font-family: 'Fraunces', serif; font-size: 18px; color: #fff; margin-bottom: 10px; position: relative; z-index: 1; }
+.sp-title em { color: var(--accent, #E94560); font-style: italic; }
+.sp-body { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.62); position: relative; z-index: 1; }
+
+/* TAKEAWAY */
+.takeaway { background: var(--soft); border-radius: 14px; padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start; border-left: 4px solid var(--accent, #E94560); margin-top: 8px; }
+.tw-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+.tw-text { font-size: 13px; line-height: 1.7; color: #444; }
+.tw-text strong { color: var(--ink); }
+
+/* PROGRESS */
+.progress { display: flex; justify-content: center; gap: 8px; padding: 28px 0 8px; }
+.prog-dot { width: 8px; height: 8px; border-radius: 50%; background: #D5CEC5; cursor: pointer; transition: all 0.25s; }
+.prog-dot.active { width: 24px; border-radius: 4px; background: var(--prog-c, #E94560); }
+
+/* HORSEMAN */
+.h-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 28px; }
+.h-card { border-radius: 14px; overflow: hidden; border: 1px solid #E8E2DA; }
+.h-head { background: #2C0A0A; padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+.h-name { font-weight: 700; font-size: 13px; color: #FF9999; }
+.h-emoji { font-size: 16px; }
+.h-body { background: #FFF5F5; padding: 12px 14px; }
+.h-def { font-size: 12px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+.h-cure { font-size: 11px; font-weight: 600; color: #2A9D8F; background: #E6F7F6; border-radius: 6px; padding: 5px 8px; }
+
+/* 3-col cards */
+.triple { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.t-card { background: #fff; border-radius: 14px; border: 1px solid #E8E2DA; padding: 18px; transition: transform 0.2s, box-shadow 0.2s; }
+.t-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.07); }
+.t-icon { font-size: 26px; margin-bottom: 10px; }
+.t-title { font-weight: 600; font-size: 13px; color: var(--accent, #E94560); margin-bottom: 6px; }
+.t-body { font-size: 12px; color: #666; line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">Ringkasan Materi</div>
+  <h1>Maaf yang <em>Menyembuhkan</em></h1>
+  <p class="hero-sub">5 modul utama dalam satu tempat. Tap kartu, explore, baca sesantai yang kamu mau.</p>
+  <div class="modul-pills">
+    <button class="m-pill p1 active" onclick="go(1,this)">01 · Kenapa Nggak Ngefek</button>
+    <button class="m-pill p2" onclick="go(2,this)">02 · Otak &amp; Konflik</button>
+    <button class="m-pill p3" onclick="go(3,this)">03 · Script Minta Maaf</button>
+    <button class="m-pill p4" onclick="go(4,this)">04 · Nerima Maaf</button>
+    <button class="m-pill p5" onclick="go(5,this)">05 · Habis Baikan</button>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+<!-- S1 -->
+<div class="section active" id="s1" style="--accent:#E94560;--accent-glow:rgba(233,69,96,0.25);">
+  <div class="sec-head">
+    <div class="sec-num">01</div>
+    <div>
+      <div class="sec-kode">Modul 1</div>
+      <div class="sec-title">Kenapa "Maaf Lahir Batin" Nggak Pernah Benar-Benar Ngefek</div>
+      <p class="sec-desc">Permintaan maaf yang kosong bukan soal kurang tulus. Ada elemen yang kalau dilewat, orang yang menerima tetap nggak bisa beneran merasakannya.</p>
+    </div>
+  </div>
+  <div class="insight-strip">
+    <div class="ins-label">Insight Utama</div>
+    <div class="ins-text">Kebanyakan orang hanya menggunakan <em>1 dari 6 elemen</em> yang dibutuhkan agar permintaan maaf bisa benar-benar diterima.</div>
+  </div>
+
+  <div class="lbl">6 Elemen Permintaan Maaf · tap kartu untuk penjelasan</div>
+  <div class="flip-grid g3">
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🎯</div><div class="ff-num">1</div></div><div class="ff-title">Pengakuan</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Pengakuan</div><div class="fb-text">Sebutkan secara spesifik apa yang dilakukan. Bukan "atas semua kesalahanku" tapi "waktu aku melakukan X." Tanpa ini, orang tidak tahu maaf kamu untuk apa.</div></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">💥</div><div class="ff-num">2</div></div><div class="ff-title">Dampak</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Dampak</div><div class="fb-text">Tunjukkan bahwa kamu paham apa yang dirasakan orang yang kamu sakiti. Bukan asumsi — tapi pengakuan bahwa efeknya nyata, apapun niatmu.</div></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🙋</div><div class="ff-num">3</div></div><div class="ff-title">Tanggung Jawab</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Tanggung Jawab</div><div class="fb-text">Tidak ada "tapi". Tidak ada penjelasan yang diam-diam mengalihkan. Kepemilikan penuh atas apa yang terjadi.</div></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">💔</div><div class="ff-num">4</div></div><div class="ff-title">Penyesalan</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Penyesalan</div><div class="fb-text">Diekspresikan dengan cara yang terasa nyata, bukan performa. Orang bisa merasakan bedanya — dan kalau kamu hanya menirukan format, mereka akan tahu.</div></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🔧</div><div class="ff-num">5</div></div><div class="ff-title">Perbaikan</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Perbaikan</div><div class="fb-text">Tawaran konkret untuk memperbaiki situasi jika memungkinkan. Menunjukkan bahwa maafnya bukan cuma kata-kata.</div></div>
+      </div>
+    </div>
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🌱</div><div class="ff-num">6</div></div><div class="ff-title">Komitmen ke Depan</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Komitmen</div><div class="fb-text">Satu hal spesifik yang akan dilakukan berbeda. Bukan janji umum "akan lebih baik" — tapi perubahan yang bisa diamati.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl">Yang terlihat seperti maaf tapi bukan · tap untuk alasannya</div>
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">🚫</div><div class="acc-title">"Maaf kalau kamu tersinggung"</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Kata "kalau" mengalihkan tanggung jawab ke pihak penerima. Artinya tersirat: mungkin kamu yang terlalu sensitif. Ini pembelaan yang dibungkus format maaf.</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">🚫</div><div class="acc-title">"Aku minta maaf, tapi kamu juga..."</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Kata "tapi" membatalkan semua yang ada sebelumnya. Otak secara otomatis mendiskon apapun sebelum "tapi" dan fokus ke yang sesudahnya.</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">🚫</div><div class="acc-title">"Aku sudah minta maaf, apa lagi yang kamu mau?"</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Permintaan maaf digunakan sebagai alat untuk mengakhiri percakapan dan memindahkan rasa bersalah ke pihak lain.</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">🚫</div><div class="acc-title">"Maaf lahir batin" tanpa konteks</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Formula ritual yang diucapkan semua orang di momen yang sama kepada semua orang. Terasa seperti kewajiban sosial, bukan pilihan yang sadar.</div></div>
+    </div>
+  </div>
+  <div class="takeaway"><div class="tw-icon">💡</div><div class="tw-text"><strong>Yang perlu diingat:</strong> Permintaan maaf yang lengkap bukan soal panjang atau pendeknya. Satu kalimat yang mencakup pengakuan, dampak, dan tanggung jawab jauh lebih kuat dari paragraf panjang yang menghindari ketiga hal itu.</div></div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2" style="--accent:#2A9D8F;--accent-glow:rgba(42,157,143,0.25);">
+  <div class="sec-head">
+    <div class="sec-num">02</div>
+    <div>
+      <div class="sec-kode" style="color:#2A9D8F">Modul 2</div>
+      <div class="sec-title">Otak Kamu Waktu Konflik Itu Lagi Nggak Bisa Diajak Mikir Jernih</div>
+      <p class="sec-desc">Bukan kamu yang lemah. Ada mekanisme biologis yang membuat bagian otak yang berpikir jernih practically offline saat konflik terjadi.</p>
+    </div>
+  </div>
+  <div class="insight-strip" style="background:linear-gradient(135deg,#0D2B22,#0F1A25);">
+    <div class="ins-label">Insight Utama</div>
+    <div class="ins-text">Saat konflik, amygdala mengambil alih sebelum prefrontal cortex sempat berpikir. Yang keluar saat itu bukan keputusan sadar — <em>itu reaksi otomatis.</em></div>
+  </div>
+
+  <div class="lbl">Dua bagian otak yang bertarung · tap kartu</div>
+  <div class="flip-grid g2" style="margin-bottom:28px;">
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🔴</div></div><div class="ff-title" style="color:#E94560;font-size:15px;margin-top:10px;">Amygdala</div><div style="font-size:12px;color:#888;margin-top:6px;line-height:1.5;">Detektor ancaman. Aktif duluan, sering salah.</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#1C0808;"><div class="fb-label" style="color:#FF9999">Amygdala</div><div class="fb-text">Memproses konflik interpersonal seperti ancaman fisik. Memicu respons fight, flight, atau freeze sebelum kamu sempat berpikir. Ini yang membuat kalimat yang kamu sesali bisa keluar tanpa direncanakan.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🟢</div></div><div class="ff-title" style="color:#2A9D8F;font-size:15px;margin-top:10px;">Prefrontal Cortex</div><div style="font-size:12px;color:#888;margin-top:6px;line-height:1.5;">Yang berpikir jernih. Lambat bereaksi.</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#091A14;"><div class="fb-label" style="color:#6EE7B7">Prefrontal Cortex</div><div class="fb-text">Bertanggung jawab untuk empati, pengambilan keputusan, dan berpikir rasional. Saat amygdala aktif penuh, bagian ini terhambat secara biologis — bukan karena kamu tidak mau berpikir jernih.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl">3 Bias memori yang memperburuk konflik · tap kartu</div>
+  <div class="flip-grid g3">
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">⬇️</div><div class="ff-num">1</div></div><div class="ff-title">Bias Negativitas</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Bias Negativitas</div><div class="fb-text">Otak menyimpan memori negatif lebih kuat dari positif. Satu kejadian buruk terasa lebih besar dari sepuluh kejadian baik — dan ini bukan dramatisasi, ini neurobiologi.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🔍</div><div class="ff-num">2</div></div><div class="ff-title">Bias Konfirmasi</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Bias Konfirmasi</div><div class="fb-text">Saat sudah marah, otak aktif mencari bukti yang membenarkan kemarahannya dan mengabaikan yang bertentangan. Ini kenapa argumen terasa makin kuat semakin lama dipikirkan.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🌀</div><div class="ff-num">3</div></div><div class="ff-title">Memory Distortion</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back"><div class="fb-label">Memory Distortion</div><div class="fb-text">Ingatan berubah setiap kali diakses. Semakin sering konflik dipikirkan ulang, semakin dramatis versi yang tersimpan. Otak bukan kamera — ia pencerita.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl">5 Teknik reset · pilih satu</div>
+  <div class="steps-wrap">
+    <div class="steps-nav">
+      <button class="step-btn active" onclick="sw(this,0,'rs')">⏸ Jeda 20 Menit</button>
+      <button class="step-btn" onclick="sw(this,1,'rs')">🌬 Napas 4-7-8</button>
+      <button class="step-btn" onclick="sw(this,2,'rs')">🚶 Gerak Fisik</button>
+      <button class="step-btn" onclick="sw(this,3,'rs')">✍️ Tulis Dulu</button>
+      <button class="step-btn" onclick="sw(this,4,'rs')">🔍 Checklist</button>
+    </div>
+    <div id="rs">
+      <div class="step-panel" data-n="1"><div class="sp-title">Jeda <em>20 Menit</em></div><div class="sp-body">Waktu minimum yang dibutuhkan kortisol untuk turun ke level normal. Ini bukan kabur dari konflik — tapi memberi otakmu waktu untuk kembali online sebelum percakapan dilanjutkan.</div></div>
+      <div class="step-panel" data-n="2" style="display:none"><div class="sp-title">Napas <em>4-7-8</em></div><div class="sp-body">Tarik 4 hitungan, tahan 7, buang 8. Pola ini mengaktifkan sistem saraf parasimpatik yang menekan respons fight-or-flight. Bisa dilakukan di mana saja, kapan saja.</div></div>
+      <div class="step-panel" data-n="3" style="display:none"><div class="sp-title">Gerakan <em>Fisik</em></div><div class="sp-body">Jalan singkat atau aktivitas ringan membantu memproses kortisol yang sudah dilepaskan. Lebih efektif dari sekadar duduk diam mencoba tenang.</div></div>
+      <div class="step-panel" data-n="4" style="display:none"><div class="sp-title">Tulis Dulu, <em>Kirim Nanti</em></div><div class="sp-body">Keluarkan semua yang ada di pikiran ke tulisan tanpa sensor. Ini melepaskan tekanan emosional yang kalau tidak dikeluarkan akan muncul saat percakapan langsung dalam bentuk yang biasanya disesali.</div></div>
+      <div class="step-panel" data-n="5" style="display:none"><div class="sp-title">Checklist <em>Kesiapan</em></div><div class="sp-body">Tanya diri sendiri: apakah aku bisa mendengarkan tanpa langsung membalas? Apakah aku bisa menyampaikan sesuatu tanpa menyerang? Kalau belum, belum waktunya ngobrol.</div></div>
+    </div>
+  </div>
+  <div class="takeaway"><div class="tw-icon">💡</div><div class="tw-text"><strong>Yang perlu diingat:</strong> Niat baik tidak cukup kalau otakmu masih dalam mode defensif. Teknik reset bukan soal mengontrol emosi — tapi memberi dirimu cukup waktu untuk merespons, bukan sekadar bereaksi.</div></div>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3" style="--accent:#E9A030;--accent-glow:rgba(233,160,48,0.25);">
+  <div class="sec-head">
+    <div class="sec-num">03</div>
+    <div>
+      <div class="sec-kode" style="color:#E9A030">Modul 3</div>
+      <div class="sec-title">Script Minta Maaf Per Situasi</div>
+      <p class="sec-desc">Cara minta maaf ke orang tua berbeda dari ke pasangan, ke saudara, ke sahabat. Dinamikanya berbeda, hambatannya berbeda.</p>
+    </div>
+  </div>
+  <div class="insight-strip" style="background:linear-gradient(135deg,#2A1800,#1A1400);">
+    <div class="ins-label">Insight Utama</div>
+    <div class="ins-text">Ada 5 elemen universal — tapi <em>cara menyampaikannya</em> berbeda per situasi. Bukan orangnya yang berbeda, tapi konteks hubungannya.</div>
+  </div>
+
+  <div class="lbl">4 Situasi &amp; pendekatannya · tap kartu</div>
+  <div class="flip-grid g2">
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">👨‍👩‍👧</div></div><div class="ff-title" style="margin-top:10px;">Konflik dengan Orang Tua</div><div style="font-size:12px;color:#888;margin-top:5px;">Tantangan: hierarki dua arah</div><div class="ff-hint">↩ tap untuk pendekatan</div></div>
+        <div class="flip-back" style="background:#2A1800;"><div class="fb-label" style="color:#E9A030">Orang Tua</div><div class="fb-text">Minta maaf ke ortu sering terasa seperti "menyerah." Kuncinya: pisahkan pengakuan dari kepatuhan. Kamu bisa mengakui dampak sesuatu tanpa harus setuju bahwa mereka selalu benar.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">💑</div></div><div class="ff-title" style="margin-top:10px;">Konflik dengan Pasangan</div><div style="font-size:12px;color:#888;margin-top:5px;">Tantangan: timing dan muatan</div><div class="ff-hint">↩ tap untuk pendekatan</div></div>
+        <div class="flip-back" style="background:#2A1800;"><div class="fb-label" style="color:#E9A030">Pasangan</div><div class="fb-text">Satu percakapan untuk satu isu — bukan semua sekaligus. Timing sangat menentukan: percakapan yang dimulai saat salah satu pihak lelah hampir selalu berakhir lebih buruk.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">👫</div></div><div class="ff-title" style="margin-top:10px;">Konflik dengan Saudara</div><div style="font-size:12px;color:#888;margin-top:5px;">Tantangan: sejarah panjang</div><div class="ff-hint">↩ tap untuk pendekatan</div></div>
+        <div class="flip-back" style="background:#2A1800;"><div class="fb-label" style="color:#E9A030">Saudara Kandung</div><div class="fb-text">Konflik hari ini membawa muatan dari bertahun-tahun lalu. Perlu eksplisit memisahkan: "aku mau bahas yang ini dulu, bukan semua sejarah kita."</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">👯</div></div><div class="ff-title" style="margin-top:10px;">Konflik dengan Sahabat</div><div style="font-size:12px;color:#888;margin-top:5px;">Tantangan: gengsi &amp; tidak ada kewajiban</div><div class="ff-hint">↩ tap untuk pendekatan</div></div>
+        <div class="flip-back" style="background:#2A1800;"><div class="fb-label" style="color:#E9A030">Sahabat</div><div class="fb-text">Yang reach out duluan bukan yang paling butuh — tapi yang paling capek nunggu situasinya berubah sendiri. Gengsi adalah tembok yang hanya merugikan kedua belah pihak.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl">Jebakan paling umum · tap untuk penjelasan</div>
+  <div class="accordion">
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">⚠️</div><div class="acc-title">Minta maaf untuk hal yang salah</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Minta maaf karena situasinya canggung atau ada tekanan, bukan karena benar-benar paham apa yang dilakukan. Terasa tidak tulus karena memang tidak menyentuh intinya.</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">⚠️</div><div class="acc-title">Kirim pesan panjang di waktu yang salah</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Tengah malam, tepat setelah bertengkar, saat orang lain lagi capek — pesan yang bagus pun sulit diterima dengan baik. Timing adalah bagian dari permintaan maaf yang sering diremehkan.</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">⚠️</div><div class="acc-title">Mengharapkan respons segera</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Minta maaf lalu menunggu balasan dalam hitungan jam menciptakan tekanan baru di atas konflik yang belum selesai. Memberi ruang bukan tanda tidak peduli.</div></div>
+    </div>
+    <div class="acc-item">
+      <div class="acc-head" onclick="openAcc(this)"><div class="acc-icon">⚠️</div><div class="acc-title">Penjelasan yang terlalu panjang</div><div class="acc-arr"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#888" stroke-width="2" stroke-linecap="round"/></svg></div></div>
+      <div class="acc-body"><div class="acc-body-inner">Penjelasan panjang sering terdengar seperti pembelaan diri yang dibungkus format maaf. Permintaan maaf yang efektif biasanya lebih pendek dari yang kita kira perlu.</div></div>
+    </div>
+  </div>
+  <div class="takeaway"><div class="tw-icon">💡</div><div class="tw-text"><strong>Yang perlu diingat:</strong> Script bukan berarti tidak tulus. Script berarti kamu cukup peduli untuk menyiapkan diri — supaya yang keluar beneran mewakili apa yang ada di hatimu.</div></div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4" style="--accent:#8B5CF6;--accent-glow:rgba(139,92,246,0.25);">
+  <div class="sec-head">
+    <div class="sec-num">04</div>
+    <div>
+      <div class="sec-kode" style="color:#8B5CF6">Modul 4</div>
+      <div class="sec-title">Cara Nerima Maaf Tanpa Menelan Luka</div>
+      <p class="sec-desc">Menerima maaf dan pura-pura baik-baik saja itu dua hal yang berbeda. Modul ini untuk yang ingin jujur.</p>
+    </div>
+  </div>
+  <div class="insight-strip" style="background:linear-gradient(135deg,#1A0F2E,#0F1A25);">
+    <div class="ins-label">Insight Utama</div>
+    <div class="ins-text">Memaafkan, melupakan, dan berdamai adalah tiga hal yang berbeda. Kamu <em>tidak harus melakukan ketiganya sekaligus.</em></div>
+  </div>
+
+  <div class="lbl">3 hal yang sering dicampuradukkan · tap kartu</div>
+  <div class="flip-grid g3" style="margin-bottom:28px;">
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">💜</div></div><div class="ff-title" style="color:#8B5CF6;font-size:15px;margin-top:10px;">Memaafkan</div><div style="font-size:12px;color:#888;margin-top:5px;line-height:1.5;">Proses internal. Untuk dirimu sendiri.</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#1A0F2E;"><div class="fb-label" style="color:#C4B5FD">Memaafkan</div><div class="fb-text">Proses internal melepaskan beban dari dirimu sendiri. Bukan untuk orang yang menyakitimu. Bisa dilakukan bahkan tanpa mereka minta maaf sekalipun.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🩶</div></div><div class="ff-title" style="color:#888;font-size:15px;margin-top:10px;">Melupakan</div><div style="font-size:12px;color:#888;margin-top:5px;line-height:1.5;">Hampir mustahil. Dan tidak diperlukan.</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#1A1A1A;"><div class="fb-label" style="color:#AAA">Melupakan</div><div class="fb-text">Hampir tidak bisa dilakukan secara sadar — dan tidak diperlukan. Ingatan tentang sesuatu yang menyakitkan bukan tanda kamu belum memaafkan.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">💚</div></div><div class="ff-title" style="color:#2A9D8F;font-size:15px;margin-top:10px;">Berdamai</div><div style="font-size:12px;color:#888;margin-top:5px;line-height:1.5;">Keputusan tentang hubungan ke depan.</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#091A14;"><div class="fb-label" style="color:#6EE7B7">Berdamai</div><div class="fb-text">Keputusan tentang hubungan ke depannya. Bisa dilakukan tanpa melupakan. Dan tidak selalu berarti mempertahankan hubungan itu seperti sebelumnya.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl">Rekonsiliasi sehat vs berisiko</div>
+  <div class="compare">
+    <div class="compare-col bad">
+      <div class="c-label">Berisiko Dilanjutkan</div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Pola berulang tanpa perubahan nyata</div></div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Satu pihak selalu yang mengalah</div></div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Dinamika tidak aman secara emosional</div></div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Dipaksa tekanan sosial, bukan keinginan</div></div>
+    </div>
+    <div class="compare-col good">
+      <div class="c-label">Rekonsiliasi Sehat</div>
+      <div class="c-item"><div class="ci">✓</div><div>Kedua pihak mau bicara jujur</div></div>
+      <div class="c-item"><div class="ci">✓</div><div>Ada pengakuan yang tulus</div></div>
+      <div class="c-item"><div class="ci">✓</div><div>Ada keamanan untuk menyampaikan kebutuhan</div></div>
+      <div class="c-item"><div class="ci">✓</div><div>Tidak ada tekanan untuk langsung seperti semula</div></div>
+    </div>
+  </div>
+  <div class="takeaway"><div class="tw-icon">💡</div><div class="tw-text"><strong>Yang perlu diingat:</strong> Memaafkan bukan kewajiban yang harus dipenuhi sesuai jadwal orang lain. Prosesnya milik kamu — dan kamu boleh butuh waktu lebih lama dari yang diharapkan orang sekitarmu.</div></div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5" style="--accent:#34D399;--accent-glow:rgba(52,211,153,0.25);">
+  <div class="sec-head">
+    <div class="sec-num">05</div>
+    <div>
+      <div class="sec-kode" style="color:#34D399">Modul 5</div>
+      <div class="sec-title">Habis Baikan, Terus Ngapain?</div>
+      <p class="sec-desc">Baikan itu bukan finish line. Banyak rekonsiliasi gagal bukan karena tidak tulus — tapi karena tidak ada yang dibangun setelahnya.</p>
+    </div>
+  </div>
+  <div class="insight-strip" style="background:linear-gradient(135deg,#072010,#0F1A14);">
+    <div class="ins-label">Insight Utama</div>
+    <div class="ins-text">Rekonsiliasi yang bertahan bukan soal seberapa dalam emosi yang keluar. Tapi soal <em>apa yang dibangun setelahnya.</em></div>
+  </div>
+
+  <div class="lbl">3 Akar kegagalan rekonsiliasi · tap kartu</div>
+  <div class="flip-grid g3">
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🗺️</div><div class="ff-num">1</div></div><div class="ff-title">Tidak ada versi bersama</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#072010;"><div class="fb-label" style="color:#34D399">Versi Berbeda</div><div class="fb-text">Masing-masing pihak baikan dari versi kejadian yang berbeda. Ketika konflik berikutnya muncul, tidak ada landasan bersama untuk kembali.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🔄</div><div class="ff-num">2</div></div><div class="ff-title">Tidak ada perubahan konkret</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#072010;"><div class="fb-label" style="color:#34D399">Tanpa Perubahan</div><div class="fb-text">Baikan tapi tidak ada yang berubah secara perilaku. Dalam beberapa minggu, situasi kembali seperti sebelum konflik dan rasa frustrasinya terasa lebih berat.</div></div>
+      </div>
+    </div>
+    <div class="flip-card tall" onclick="this.classList.toggle('flipped')">
+      <div class="flip-inner">
+        <div class="flip-front"><div class="ff-top"><div class="ff-emoji">🌩️</div><div class="ff-num">3</div></div><div class="ff-title">Tidak ada rencana ke depan</div><div class="ff-hint">↩ tap untuk detail</div></div>
+        <div class="flip-back" style="background:#072010;"><div class="fb-label" style="color:#34D399">Tanpa Rencana</div><div class="fb-text">Konflik berikutnya pasti datang. Tanpa cara yang disepakati, pola lama muncul lagi secara otomatis — bukan karena niat buruk, tapi karena tidak ada alternatif.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lbl">3 Kesepakatan pasca rekonsiliasi · pilih untuk baca</div>
+  <div class="steps-wrap">
+    <div class="steps-nav">
+      <button class="step-btn active" onclick="sw(this,0,'ps')">① Versi Bersama</button>
+      <button class="step-btn" onclick="sw(this,1,'ps')">② Yang Berbeda</button>
+      <button class="step-btn" onclick="sw(this,2,'ps')">③ Konflik Berikutnya</button>
+    </div>
+    <div id="ps">
+      <div class="step-panel" data-n="①"><div class="sp-title">Bangun <em>Versi Bersama</em></div><div class="sp-body">Duduk dan sepakati: apa yang sebetulnya terjadi, dari sudut pandang kedua belah pihak. Bukan untuk menentukan siapa yang benar — tapi supaya kalian punya pemahaman yang sama tentang titik awalnya.</div></div>
+      <div class="step-panel" data-n="②" style="display:none"><div class="sp-title">Tentukan <em>Yang Konkret Berbeda</em></div><div class="sp-body">Satu atau dua hal spesifik yang akan dilakukan berbeda mulai sekarang. Bukan janji umum "akan lebih baik" — tapi perubahan yang bisa diamati dan diverifikasi oleh kedua pihak.</div></div>
+      <div class="step-panel" data-n="③" style="display:none"><div class="sp-title">Sepakati <em>Cara Hadapi Konflik Berikutnya</em></div><div class="sp-body">Konflik berikutnya pasti datang. Sepakati sebelumnya: bagaimana kalian akan menanganinya? Siapa yang memulai percakapan? Bagaimana kalau butuh jeda? Jawab ini sebelum situasinya muncul.</div></div>
+    </div>
+  </div>
+
+  <div class="lbl">Gencatan senjata vs rekonsiliasi nyata</div>
+  <div class="compare" style="margin-bottom:28px;">
+    <div class="compare-col bad">
+      <div class="c-label">Gencatan Senjata</div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Sama-sama capek, jadi berhenti berantem</div></div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Tidak ada yang dibahas secara tuntas</div></div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Topik akar masalah dihindari</div></div>
+      <div class="c-item"><div class="ci">⚠️</div><div>Terasa oke tapi ada yang mengganjal</div></div>
+    </div>
+    <div class="compare-col good">
+      <div class="c-label">Rekonsiliasi Nyata</div>
+      <div class="c-item"><div class="ci">✓</div><div>Ada yang dibicarakan dengan jujur</div></div>
+      <div class="c-item"><div class="ci">✓</div><div>Kedua pihak merasa didengar</div></div>
+      <div class="c-item"><div class="ci">✓</div><div>Ada sesuatu yang berbeda setelahnya</div></div>
+      <div class="c-item"><div class="ci">✓</div><div>Tidak sempurna, tapi nyata</div></div>
+    </div>
+  </div>
+  <div class="takeaway"><div class="tw-icon">💡</div><div class="tw-text"><strong>Yang perlu diingat:</strong> Rekonsiliasi adalah keputusan yang dibuat setiap hari, bukan sekali waktu. Setiap kali kamu memilih berkomunikasi dengan cara yang berbeda, itu rekonsiliasi yang sedang berjalan.</div></div>
+</div>
+
+<!-- PROGRESS DOTS -->
+<div class="progress" id="prog">
+  <div class="prog-dot active" onclick="go(1,document.querySelectorAll('.m-pill')[0])"></div>
+  <div class="prog-dot" onclick="go(2,document.querySelectorAll('.m-pill')[1])"></div>
+  <div class="prog-dot" onclick="go(3,document.querySelectorAll('.m-pill')[2])"></div>
+  <div class="prog-dot" onclick="go(4,document.querySelectorAll('.m-pill')[3])"></div>
+  <div class="prog-dot" onclick="go(5,document.querySelectorAll('.m-pill')[4])"></div>
+</div>
+
+</div>
+
+<script>
+const AC = ['#E94560','#2A9D8F','#E9A030','#8B5CF6','#34D399'];
+function go(n, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.m-pill').forEach(b => b.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  btn.classList.add('active');
+  document.querySelectorAll('#prog .prog-dot').forEach((d,i) => {
+    d.classList.toggle('active', i===n-1);
+    if(i===n-1) d.style.background = AC[i];
+    else d.style.background = '';
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function openAcc(head) {
+  const item = head.parentElement;
+  const body = item.querySelector('.acc-body');
+  const open = item.classList.contains('open');
+  item.closest('.accordion').querySelectorAll('.acc-item').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.acc-body').style.maxHeight = '0';
+  });
+  if (!open) {
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+function sw(btn, idx, id) {
+  const wrap = document.getElementById(id);
+  wrap.querySelectorAll('.step-panel').forEach((p,i) => p.style.display = i===idx ? 'block' : 'none');
+  btn.closest('.steps-nav').querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
